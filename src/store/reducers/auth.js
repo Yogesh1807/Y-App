@@ -6,7 +6,6 @@ export default function Auth(state = initialState, action) {
   switch (action.type) {
     case "LOGIN_LOADING": {
       return { ...state, loading: true };
-      break;
     }
 
     case "LOGIN_SUCCESS": {
@@ -15,9 +14,11 @@ export default function Auth(state = initialState, action) {
         loading: false,
         userData: action.payload,
       };
-      break;
+    }
+    default: {
+      return {
+        ...state,
+      };
     }
   }
-
-  return state;
 }
