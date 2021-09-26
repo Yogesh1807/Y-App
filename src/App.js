@@ -1,22 +1,34 @@
-import logo from "./logo.svg";
-import "./App.css";
+import { Router, Switch } from "react-router-dom";
+import { Provider } from "react-redux";
 
-function App() {
+import history from "./utils/constants";
+import "./App.css";
+import store from "./store/store";
+import AppEntry from "./pages/appEntry";
+import Home from "./pages/home";
+import Contact from "./pages/contact";
+import PrivateRoute from "./routeModule/private";
+import PublicRoute from "./routeModule/public";
+import Page from "./pages/page";
+
+function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Welcome to Y-app Personal Web App</p>
-        <a
-          className="App-link"
-          href="https://www.youtube.com/c/YogeshSatale"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Youtube Channel
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <Router history={history}>
+        <Switch>
+          <PublicRoute
+            restricted={true}
+            component={AppEntry}
+            path="/login"
+            exact
+          />
+          <PrivateRoute component={Home} path="/" exact />
+          <PrivateRoute component={Home} path="/home" exact />
+          <PrivateRoute component={Contact} path="/contact" exact />
+          <PrivateRoute component={Page} path="/page" exact />
+        </Switch>
+      </Router>
+    </Provider>
   );
 }
 
