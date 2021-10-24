@@ -64,7 +64,8 @@ function AppEntry(props) {
 
           <div className="mt-4">
             <div className="d-flex justify-content-center links">
-              Don't have an account? <a className="ml-2">Sign Up</a>
+              Don't have an account?
+              <button className="signupLink">Sign Up</button>
             </div>
           </div>
         </div>

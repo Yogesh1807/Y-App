@@ -1,7 +1,8 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import profile from "../../assets/img/profile.png";
+import yslogo from "../../assets/img/YLOGO.png";
+
 import { PageLayout } from "../../layout";
 
 function Home(props) {
@@ -12,7 +13,8 @@ function Home(props) {
     header: null,
     content: (
       <HomeStyle id="summary" className="summary">
-        <img src={profile} alt="My Profile" />
+        <img src={yslogo} alt="My Profile" />
+
         <div className="summaryData">
           <h2 className="summaryTitle">Intro</h2>
           <p>

@@ -16,7 +16,10 @@ export function login() {
           edit: false,
           delete: false,
         },
-        modules: ["home", "contact"],
+        modules: [
+          { name: "home", icon: "fa fa-home" },
+          { name: "contact", icon: "fa fa-phone" },
+        ],
       };
       alert("Logged in");
       localStorage.setItem(TOKEN_KEY, "TestLogin");
