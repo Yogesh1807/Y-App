@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import profile from "../../assets/img/profile.png";
 import yslogo from "../../assets/img/YLOGO.png";
 
 import { PageLayout } from "../../layout";
