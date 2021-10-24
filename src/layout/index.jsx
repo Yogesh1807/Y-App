@@ -27,7 +27,7 @@ export const PageLayout = (props) => {
       };
       setAppData(data);
     }
-  }, []);
+  }, [userData]);
 
   console.log("Layout Data", userData, appData);
 
