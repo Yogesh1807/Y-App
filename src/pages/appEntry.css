@@ -4,7 +4,7 @@ html {
   margin: 0;
   padding: 0;
   height: 100%;
-  background: #60a3bc !important;
+  /* background: #60a3bc !important; */
 }
 .container {
   margin-top: 10%;
@@ -71,4 +71,13 @@ html {
 }
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
   background-color: #c0392b !important;
+}
+.signupLink {
+  outline: none;
+  box-shadow: none;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+  color: white;
+  padding: 0;
 }

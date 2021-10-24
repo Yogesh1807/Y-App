@@ -7,6 +7,7 @@ let tempData = {};
 
 export const PageLayout = (props) => {
   const [appData, setAppData] = useState({});
+  const [collapse, setCollapse] = useState(true);
   const { userData } = props;
 
   useEffect(() => {
@@ -33,8 +34,13 @@ export const PageLayout = (props) => {
 
   return (
     <MainLayout>
-      <Sidebar {...props} userData={appData} />
-      <PageContent>{props.content}</PageContent>
+      <Sidebar
+        {...props}
+        collapse={collapse}
+        setCollapse={setCollapse}
+        userData={appData}
+      />
+      <PageContent collapse={collapse}>{props.content}</PageContent>
     </MainLayout>
   );
 };
@@ -53,9 +59,10 @@ export const MainLayout = styled.div`
 `;
 export const PageContent = styled.div`
   float: right;
-  width: 80%;
-
-  /* background-color: red; */
+  width: ${(props) => (props.collapse ? "95%" : "80%")};
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  background-color: red;
 
   a:hover {
     text-decoration: none;
