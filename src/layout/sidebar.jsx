@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link, useParams, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { logout } from "../store/actions/auth";
 
 const SidebarStyle = styled.div`
@@ -78,8 +78,8 @@ function Sidebar(props) {
       userData.modules.map((item) => {
         console.log("line79=>", userData.content[item]);
         const params = {
-            pathname: `/${item}`,
-        //   pathname: `/page`,
+          pathname: `/${item}`,
+          //   pathname: `/page`,
           content: userData.content[`${item}`],
         };
         return <Link to={params}>{item}</Link>;

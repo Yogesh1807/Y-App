@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { AppConfig } from "../utils/appConfig";
 import Sidebar from "./sidebar";
+let tempData = {};
 
 export const PageLayout = (props) => {
-  let tempData = {};
   const [appData, setAppData] = useState({});
   const { userData } = props;
 
