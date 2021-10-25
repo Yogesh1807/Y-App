@@ -1,135 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { logout } from "../store/actions/auth";
 import { svgIcons } from "../utils/svgicon";
 
-const SidebarStyle = styled.div`
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-  width: ${(props) => (props.collapse ? "5%" : "20%")};
-  float: left;
-  background-color: #f1f1f1;
-  position: fixed;
-  height: 100%;
-  overflow-y: ${(props) => (props.collapse ? "none" : "auto")};
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-  button {
-    cursor: pointer;
-  }
-  a {
-    display: block;
-    color: black;
-    padding: 16px;
-    text-decoration: none;
-    text-transform: capitalize;
-  }
-
-  a.active {
-    background-color: #04aa6d;
-    color: white;
-  }
-
-  a:hover:not(.active) {
-    background-color: #555;
-    color: white;
-  }
-  .icon-bar {
-    background-color: #555;
-  }
-
-  .icon-bar a {
-    padding: 10px;
-    transition: all 0.3s ease;
-    color: rgb(255, 255, 255);
-    font-size: 20px;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
-    border-bottom: 1px solid black;
-    display: flex;
-    place-content: ${(props) => (props.collapse ? "center" : "flex-start")};
-    transition: 0.4s;
-  }
-
-  .icon-bar a:hover {
-    background-color: #000;
-  }
-
-  .active {
-    background-color: #04aa6d;
-  }
-
-  div.content {
-    margin-left: 200px;
-    padding: 1px 16px;
-    height: 1000px;
-  }
-  .actionBtnList {
-    position: absolute;
-    bottom: 0px;
-    left: 0;
-    list-style: none;
-    padding: 0;
-    font-size: 25px;
-    /* text-align: center; */
-    border: 0;
-    cursor: pointer;
-    margin: 0;
-    width: 100%;
-    display: ${(props) => (props.collapse ? "block" : "flex")};
-  }
-  .actionBtnList li {
-    /* margin: 10px 0; */
-    /* border-top: 1px solid black;
-    border-left: 1px solid black; */
-    border: 0;
-  }
-  .logoutBtn {
-    border: 0;
-    background-color: transparent;
-    color: #1f0202;
-    transition: 1s;
-    width: 100%;
-  }
-  .collapseBtn {
-    border: 0;
-    background-color: transparent;
-    color: #1f0202;
-    transition: 1s;
-    width: 100%;
-  }
-  button:focus {
-    outline: 0px auto -webkit-focus-ring-color;
-  }
-
-  @media screen and (max-width: 700px) {
-    width: 100%;
-    height: auto;
-    position: relative;
-
-    a {
-      float: left;
-    }
-    div.content {
-      margin-left: 0;
-    }
-  }
-
-  @media screen and (max-width: 400px) {
-    a {
-      text-align: center;
-      float: none;
-    }
-  }
-`;
-
 function Sidebar(props) {
   const history = useHistory();
-  //   const params = useParams();
-  console.log("sidebar props", props, svgIcons);
-  const { userData, setCollapse, collapse } = props;
+  let pageName = useLocation().pathname;
+  pageName = pageName === "/" ? "/home" : pageName;
+  console.log("sidebar props", props, svgIcons, pageName);
+  const { userData, setCollapse, collapse, themeNo } = props;
+
   const OnLogout = () => {
     if (logout()) {
       history.push("/login");
@@ -149,7 +30,12 @@ function Sidebar(props) {
           content: userData.content[`${item.name}`],
         };
         return (
-          <Link title={item.name} to={params} key={item.name}>
+          <Link
+            className={pageName === `/${item.name}` ? "active" : ""}
+            title={item.name}
+            to={params}
+            key={item.name}
+          >
             {collapse ? (
               <span style={{ padding: "0 15px" }}>{svgIcons[item.name]()}</span>
             ) : (
@@ -166,7 +52,7 @@ function Sidebar(props) {
     );
   };
   return (
-    <SidebarStyle collapse={collapse}>
+    <SidebarStyle collapse={collapse} themeNo={themeNo}>
       <div className="icon-bar">{getMenus()}</div>
       <ul className="actionBtnList">
         <li>
@@ -205,5 +91,136 @@ function Sidebar(props) {
     </SidebarStyle>
   );
 }
-
 export default Sidebar;
+
+export const SidebarStyle = styled.div`
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  width: ${(props) => (props.collapse ? "5%" : "20%")};
+  float: left;
+  background-color: ${(props) => {
+    console.log("line96 props=>", props);
+    return props.theme[props.themeNo].bgColor;
+  }};
+  position: fixed;
+  height: 100%;
+  overflow-y: ${(props) => (props.collapse ? "none" : "auto")};
+  -webkit-transition: 0.4s;
+  /* transition: 0.4s; */
+  transition: all 0.4s ease;
+  button {
+    cursor: pointer;
+  }
+  a {
+    display: block;
+    color: ${(props) => props.theme[props.themeNo].icon.color};
+
+    padding: 16px;
+    text-decoration: none;
+    text-transform: capitalize;
+  }
+
+  a.active {
+    /* background-color: #04aa6d; */
+    color: white;
+  }
+
+  a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+  }
+  .icon-bar {
+    /* background-color: #555; */
+  }
+
+  .icon-bar a {
+    padding: 10px;
+    transition: all 0.3s ease;
+    font-size: 25px;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+
+    display: flex;
+    place-content: ${(props) => (props.collapse ? "center" : "flex-start")};
+    /* transition: 0.4s; */
+    transition: all 0.4s ease;
+  }
+
+  .icon-bar a:hover {
+    color: ${(props) => props.theme[props.themeNo].colors.white};
+    background-color: transparent;
+  }
+
+  .active {
+    color: ${(props) => props.theme[props.themeNo].colors.white};
+    background-color: transparent;
+  }
+
+  div.content {
+    margin-left: 200px;
+    padding: 1px 16px;
+    height: 1000px;
+  }
+  .actionBtnList {
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    list-style: none;
+    padding: 0;
+    font-size: 25px;
+    /* text-align: center; */
+    border: 0;
+    cursor: pointer;
+    margin: 0;
+    width: 100%;
+    display: ${(props) => (props.collapse ? "block" : "flex")};
+  }
+  .actionBtnList li {
+    padding: 10px;
+    border: 0;
+  }
+  .logoutBtn {
+    border: 0;
+    background-color: transparent;
+    color: ${(props) => props.theme[props.themeNo].icon.color};
+    width: 100%;
+  }
+  .logoutBtn:hover {
+    color: ${(props) => props.theme[props.themeNo].colors.white};
+    background-color: transparent;
+  }
+  .collapseBtn {
+    border: 0;
+    background-color: transparent;
+    color: ${(props) => props.theme[props.themeNo].icon.color};
+    width: 100%;
+  }
+  .collapseBtn:hover {
+    color: ${(props) => props.theme[props.themeNo].colors.white};
+    background-color: transparent;
+  }
+  button:focus {
+    outline: 0px auto -webkit-focus-ring-color;
+  }
+
+  @media screen and (max-width: 700px) {
+    width: 100%;
+    height: auto;
+    position: relative;
+
+    a {
+      float: left;
+    }
+    div.content {
+      margin-left: 0;
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    a {
+      text-align: center;
+      float: none;
+    }
+  }
+`;

@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 import { login } from "../store/actions/auth";
-import "./appEntry.css";
+import { AppEntryStyle } from "./appEntryStyle";
 import brandLogo from "../assets/img/YLOGO.png";
 
 function AppEntry(props) {
   const { loginAction } = props;
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
-
+  console.log("login props", props);
   return (
-    <div className="container h-100">
+    <AppEntryStyle {...props}>
       <div className="d-flex justify-content-center h-100">
         <div className="user_card">
           <div className="d-flex justify-content-center">
@@ -65,12 +65,12 @@ function AppEntry(props) {
           <div className="mt-4">
             <div className="d-flex justify-content-center links">
               Don't have an account?
-              <button className="signupLink">Sign Up</button>
+              <button className="signupLink">&nbsp;Sign Up</button>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </AppEntryStyle>
   );
 }
 
