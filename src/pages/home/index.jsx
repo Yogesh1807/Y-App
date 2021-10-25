@@ -8,11 +8,18 @@ import { PageLayout } from "../../layout";
 function Home(props) {
   const params = useLocation();
   const { content } = params;
+
   console.log("Home line=>9", props, params, content);
   return PageLayout({
     header: null,
     content: (
-      <HomeStyle id="summary" className="summary">
+      <HomeStyle
+        theme={props.theme}
+        themeNo={props.themeNo}
+        {...props}
+        id="summary"
+        className="summary"
+      >
         <img src={yslogo} alt="My Profile" />
 
         <div className="summaryData">
@@ -29,8 +36,10 @@ function Home(props) {
             <br />
           </p>
         </div>
+        <div className="themeSelector"></div>
       </HomeStyle>
     ),
+    ...props,
   });
 }
 
@@ -42,10 +51,10 @@ export const HomeStyle = styled.div`
   flex-direction: row;
   justify-content: start;
   margin: 20px;
-  padding: 16px 20px;
+  /* padding: 16px 20px; */
   text-align: justify;
   border-radius: 5px;
-  box-shadow: 1px 2px 3px 0px red;
+  /* box-shadow: 1px 2px 3px 0px red; */
 
   .componentSummary {
     display: flex;
@@ -62,23 +71,27 @@ export const HomeStyle = styled.div`
   .summaryTitle {
     margin: 10px 0;
     text-transform: capitalize;
-    color: #717db3;
+    color: ${(props) => {
+      console.log("line68=>", props);
+      return props.theme[props.themeNo].h2.color;
+    }};
     text-align: left;
   }
   .summaryData {
     /* font-family: "ProximalNova"; */
-    color: #838383;
+    color: ${(props) => props.theme[props.themeNo].text.color};
     font-weight: normal;
     font-size: 4vh;
   }
   .summaryData > p > a {
-    color: #ce6e3f;
+    color: ${(props) => props.theme[props.themeNo].link.color};
     cursor: pointer;
   }
   img {
     border-radius: 50%;
     height: 300px;
-    padding: 0 60px;
+    margin: 0 20px 0 0;
     float: left;
+    background-color: ${(props) => props.theme[props.themeNo].bgColor};
   }
 `;

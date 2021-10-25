@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { PageLayout } from "../../layout";
-function Contact() {
+function Contact(props) {
   return PageLayout({
     header: null,
     content: (
-      <MainContact>
+      <MainContact theme={props.theme} themeNo={props.themeNo} {...props}>
         <h1>Contact Page</h1>
       </MainContact>
     ),

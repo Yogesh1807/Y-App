@@ -10,7 +10,7 @@ function Page(props) {
   if (content) {
     return PageLayout({
       header: null,
-      content: content.htmlContent(),
+      content: content.htmlContent({ ...props }),
     });
   } else {
     return <pre>{JSON.stringify(params)}</pre>;
