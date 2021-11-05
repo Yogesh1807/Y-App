@@ -5,7 +5,7 @@ function Contact(props) {
   return PageLayout({
     header: null,
     content: (
-      <MainContact theme={props.theme} themeNo={props.themeNo} {...props}>
+      <MainContact selectedTheme={props.theme.selected} {...props}>
         <h1>Contact Page</h1>
       </MainContact>
     ),

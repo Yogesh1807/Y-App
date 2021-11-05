@@ -6,12 +6,16 @@ import { AppEntryStyle } from "./appEntryStyle";
 import brandLogo from "../assets/img/YLOGO.png";
 
 function AppEntry(props) {
-  const { loginAction } = props;
+  const { loginAction, theme } = props;
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
-  console.log("login props", props);
+  const selectedTheme = Object.values(theme).find(
+    (item) => item.checked === true
+  );
+  console.log("login props", props, selectedTheme);
+
   return (
-    <AppEntryStyle {...props}>
+    <AppEntryStyle selectedTheme={selectedTheme}>
       <div className="d-flex justify-content-center h-100">
         <div className="user_card">
           <div className="d-flex justify-content-center">

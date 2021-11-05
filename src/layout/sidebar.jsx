@@ -9,7 +9,8 @@ function Sidebar(props) {
   let pageName = useLocation().pathname;
   pageName = pageName === "/" ? "/home" : pageName;
   console.log("sidebar props", props, svgIcons, pageName);
-  const { userData, setCollapse, collapse, themeNo } = props;
+  const { userData, setCollapse, collapse } = props;
+  const { selectedTheme } = props.content.props;
 
   const OnLogout = () => {
     if (logout()) {
@@ -51,8 +52,9 @@ function Sidebar(props) {
       })
     );
   };
+
   return (
-    <SidebarStyle collapse={collapse} themeNo={themeNo}>
+    <SidebarStyle collapse={collapse} selectedTheme={selectedTheme}>
       <div className="icon-bar">{getMenus()}</div>
       <ul className="actionBtnList">
         <li>
@@ -66,7 +68,7 @@ function Sidebar(props) {
             ) : (
               <>
                 <span>{svgIcons["logout"]()}</span>
-                <span>Logout</span>
+                <label>Logout</label>
               </>
             )}
           </button>
@@ -82,7 +84,7 @@ function Sidebar(props) {
             ) : (
               <>
                 <span>{svgIcons["collapse"]()}</span>
-                <span>Collapse</span>
+                <label>Collapse</label>
               </>
             )}
           </button>
@@ -101,7 +103,7 @@ export const SidebarStyle = styled.div`
   float: left;
   background-color: ${(props) => {
     console.log("line96 props=>", props);
-    return props.theme[props.themeNo].bgColor;
+    return props.selectedTheme.bgColor;
   }};
   position: fixed;
   height: 100%;
@@ -114,7 +116,7 @@ export const SidebarStyle = styled.div`
   }
   a {
     display: block;
-    color: ${(props) => props.theme[props.themeNo].icon.color};
+    color: ${(props) => props.selectedTheme.icon.color};
 
     padding: 16px;
     text-decoration: none;
@@ -148,12 +150,12 @@ export const SidebarStyle = styled.div`
   }
 
   .icon-bar a:hover {
-    color: ${(props) => props.theme[props.themeNo].colors.white};
+    color: ${(props) => props.selectedTheme.colors.white};
     background-color: transparent;
   }
 
   .active {
-    color: ${(props) => props.theme[props.themeNo].colors.white};
+    color: ${(props) => props.selectedTheme.colors.white};
     background-color: transparent;
   }
 
@@ -170,34 +172,38 @@ export const SidebarStyle = styled.div`
     padding: 0;
     font-size: 25px;
     /* text-align: center; */
-    border: 0;
+    border-top: 5px solid #0c1c31;
     cursor: pointer;
     margin: 0;
     width: 100%;
     display: ${(props) => (props.collapse ? "block" : "flex")};
   }
   .actionBtnList li {
-    padding: 10px;
+    padding: 10px 3px;
     border: 0;
+  }
+  .actionBtnList li label {
+    padding: 0 10px;
+    margin: 0;
   }
   .logoutBtn {
     border: 0;
     background-color: transparent;
-    color: ${(props) => props.theme[props.themeNo].icon.color};
+    color: ${(props) => props.selectedTheme.icon.color};
     width: 100%;
   }
   .logoutBtn:hover {
-    color: ${(props) => props.theme[props.themeNo].colors.white};
+    color: ${(props) => props.selectedTheme.colors.white};
     background-color: transparent;
   }
   .collapseBtn {
     border: 0;
     background-color: transparent;
-    color: ${(props) => props.theme[props.themeNo].icon.color};
+    color: ${(props) => props.selectedTheme.icon.color};
     width: 100%;
   }
   .collapseBtn:hover {
-    color: ${(props) => props.theme[props.themeNo].colors.white};
+    color: ${(props) => props.selectedTheme.colors.white};
     background-color: transparent;
   }
   button:focus {

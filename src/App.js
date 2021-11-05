@@ -15,49 +15,48 @@ import Page from "./pages/page";
 //   main: "mediumseagreen",
 // };
 function App(props) {
-  const [themeNo, setThemeNo] = useState(1);
+  const themeData = {
+    default: theme,
+    selected: theme[1],
+  };
+  const [themeState, setThemeState] = useState(themeData);
 
   return (
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={themeState}>
         <Router history={history}>
           <Switch>
             <PublicRoute
-              themeNo={themeNo}
-              theme={theme}
+              theme={themeState}
               restricted={true}
               component={AppEntry}
               path="/login"
               exact
             />
             <PrivateRoute
-              setThemeNo={setThemeNo}
-              themeNo={themeNo}
-              theme={theme}
+              setThemeState={setThemeState}
+              theme={themeState}
               component={Home}
               path="/"
               exact
             />
             <PrivateRoute
-              setThemeNo={setThemeNo}
-              themeNo={themeNo}
-              theme={theme}
+              setThemeState={setThemeState}
+              theme={themeState}
               component={Home}
               path="/home"
               exact
             />
             <PrivateRoute
-              setThemeNo={setThemeNo}
-              themeNo={themeNo}
-              theme={theme}
+              setThemeState={setThemeState}
+              theme={themeState}
               component={Contact}
               path="/contact"
               exact
             />
             <PrivateRoute
-              setThemeNo={setThemeNo}
-              themeNo={themeNo}
-              theme={theme}
+              setThemeState={setThemeState}
+              theme={themeState}
               component={Page}
               path="/page"
               exact
