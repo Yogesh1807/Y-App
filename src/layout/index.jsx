@@ -9,8 +9,8 @@ export const PageLayout = (props) => {
   const [appData, setAppData] = useState({});
   const [collapse, setCollapse] = useState(true);
   const { userData, content } = props;
-  const { theme, themeNo } = content.props;
-  console.log("layout props", props, theme, themeNo);
+  const { theme } = content.props;
+  console.log("layout props", props, theme);
   useEffect(() => {
     if (!userData) {
       tempData = JSON.parse(localStorage.getItem("user", userData));
@@ -31,20 +31,17 @@ export const PageLayout = (props) => {
     }
   }, [userData]);
 
-  console.log("Layout Data", appData, theme[themeNo].bgColor);
+  console.log("Layout Data", appData);
 
   return (
-    <MainLayout themeNo={themeNo}>
+    <MainLayout>
       <Sidebar
         {...props}
-        themeNo={themeNo}
         collapse={collapse}
         setCollapse={setCollapse}
         userData={appData}
       />
-      <PageContent themeNo={themeNo} {...props} collapse={collapse}>
-        {props.content}
-      </PageContent>
+      <PageContent collapse={collapse}>{props.content}</PageContent>
     </MainLayout>
   );
 };
@@ -66,8 +63,6 @@ export const PageContent = styled.div`
   width: ${(props) => (props.collapse ? "95%" : "80%")};
   -webkit-transition: 0.4s;
   transition: 0.4s;
-  background-color: ${(props) => props.theme[props.themeNo].text.bgColor};
-
   a:hover {
     text-decoration: none;
   }

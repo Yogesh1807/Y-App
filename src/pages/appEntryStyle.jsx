@@ -17,7 +17,10 @@ export const AppEntryStyle = styled.div`
     width: 350px;
     margin-top: auto;
     margin-bottom: auto;
-    background: ${(props) => props.theme[props.themeNo].text.bgColor};
+    background: ${(props) => {
+      console.log("line20=>", props);
+      return props.selectedTheme.text.bgColor;
+    }};
 
     position: relative;
     display: flex;
@@ -37,7 +40,7 @@ export const AppEntryStyle = styled.div`
     width: 170px;
     top: -75px;
     border-radius: 50%;
-    background: ${(props) => props.theme[props.themeNo].bgColor};
+    background: ${(props) => props.selectedTheme.bgColor};
     padding: 10px;
     text-align: center;
   }
@@ -46,14 +49,14 @@ export const AppEntryStyle = styled.div`
     width: 150px;
     border-radius: 50%;
     border: 2px solid white;
-    background-color: ${(props) => props.theme[props.themeNo].bgColor};
+    background-color: ${(props) => props.selectedTheme.bgColor};
   }
   .form_container {
     margin-top: 100px;
   }
   .login_btn {
     width: 100%;
-    background: ${(props) => props.theme[props.themeNo].bgColor} !important;
+    background: ${(props) => props.selectedTheme.bgColor} !important;
     color: white !important;
   }
   .login_btn:focus {
@@ -64,7 +67,7 @@ export const AppEntryStyle = styled.div`
     padding: 0 2rem;
   }
   .input-group-text {
-    background: ${(props) => props.theme[props.themeNo].bgColor} !important;
+    background: ${(props) => props.selectedTheme.bgColor} !important;
     color: white !important;
     border: 0 !important;
     border-radius: 0.25rem 0 0 0.25rem !important;
@@ -85,7 +88,7 @@ export const AppEntryStyle = styled.div`
     border: 0;
     background-color: transparent;
     cursor: pointer;
-    color: ${(props) => props.theme[props.themeNo].link.color};
+    color: ${(props) => props.selectedTheme.link.color};
     padding: 0;
   }
 `;
