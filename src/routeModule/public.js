@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Route, Redirect } from "react-router-dom";
-import { isLogin } from "../store/actions/auth";
+// import { isLogin } from "../store/actions/auth";
 
 const PublicRoute = ({ component: Component, restricted, ...rest }) => {
   return (

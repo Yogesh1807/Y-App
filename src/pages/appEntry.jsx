@@ -9,7 +9,7 @@ import brandLogo from "../assets/img/YLOGO.png";
 
 function AppEntry(props) {
   const { loginAction, theme } = props;
-  const [mobile, setMobile] = useState("");
+  // const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
   const selectedTheme = Object.values(theme).find(
     (item) => item.checked === true
@@ -93,10 +93,8 @@ function AppEntry(props) {
   );
 }
 
-const mapStateToProps = (state) => ({});
-
 const mapDispatchToProps = (dispatch) => {
   return { loginAction: () => dispatch(login()) };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppEntry);
+export default connect(null, mapDispatchToProps)(AppEntry);

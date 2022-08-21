@@ -11,14 +11,14 @@ import Home from "./pages/home";
 import Contact from "./pages/contact";
 import PrivateRoute from "./routeModule/private";
 import PublicRoute from "./routeModule/public";
-import Page from "./pages/page";
+// import Page from "./pages/page";
 import Dashboard from "./pages/Dashboard";
 import ComponentPage from "./pages/component";
 import { CustomLeaflet } from "./pages/component/CustomLeaflet";
 // const theme = {
 //   main: "mediumseagreen",
 // };
-function App(props) {
+function App() {
   const themeData = {
     default: theme,
     selected: theme[1],
