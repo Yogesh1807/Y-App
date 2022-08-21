@@ -11,7 +11,7 @@ import { LabelCheckbox } from "../../components/labelCheckbox";
 let temp = {};
 
 function SignUp(props) {
-  const { signUpAction, theme } = props;
+  const { theme } = props;
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
   const [isToggleModal, setTOggleModal] = useState(false);
