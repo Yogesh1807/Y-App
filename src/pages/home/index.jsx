@@ -2,12 +2,12 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import update from "immutability-helper";
-
+import { connect } from "react-redux";
 import yslogo from "../../assets/img/YLOGO.png";
 
 import { PageLayout } from "../../layout";
 
-function Home(props) {
+function HomePage(props) {
   const params = useLocation();
   const { content } = params;
   const { setThemeState, theme } = props;
@@ -94,12 +94,25 @@ function Home(props) {
               );
             })}
         </div>
+        <div>
+          <h1>Slider Component</h1>
+        </div>
       </HomeStyle>
     ),
     ...props,
   });
 }
 
+const mapStateToProps = (state) => {
+  console.log("line46", state);
+  return {
+    userData: state.userReducer.userData,
+  };
+};
+
+// const mapDispatchToProps = () => {};
+
+const Home = connect(mapStateToProps)(HomePage);
 export default Home;
 
 export const HomeStyle = styled.div`
@@ -189,5 +202,8 @@ export const HomeStyle = styled.div`
   }
   input[type="radio" i] {
     border: 0;
+  }
+  input[type="radio"]:checked {
+    background-color: #93e026;
   }
 `;
