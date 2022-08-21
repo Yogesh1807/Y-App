@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 import { login } from "../store/actions/auth";
+import history from "../utils/constants";
+
 import { AppEntryStyle } from "./appEntryStyle";
 import brandLogo from "../assets/img/YLOGO.png";
 
@@ -25,7 +27,7 @@ function AppEntry(props) {
           </div>
           <div className="d-flex justify-content-center form_container">
             <form>
-              <div className="input-group mb-3">
+              {/* <div className="input-group mb-3">
                 <div className="input-group-append">
                   <span className="input-group-text">
                     <i className="fas fa-phone"></i>
@@ -38,7 +40,7 @@ function AppEntry(props) {
                   placeholder="mobile"
                   onChange={(e) => setMobile(e.target.value)}
                 />
-              </div>
+              </div> */}
               <div className="input-group mb-2">
                 <div className="input-group-append">
                   <span className="input-group-text">
@@ -69,7 +71,20 @@ function AppEntry(props) {
           <div className="mt-4">
             <div className="d-flex justify-content-center links">
               Don't have an account?
-              <button className="signupLink">&nbsp;Sign Up</button>
+              <button
+                onClick={() => history.push("/signup")}
+                className="signupLink"
+              >
+                &nbsp;Sign Up
+              </button>
+            </div>
+          </div>
+          <div className="mt-4">
+            <div className="d-flex justify-content-center links">
+              Don't have an account?
+              <button onClick={() => history.push("/")} className="signupLink">
+                &nbsp;Back to home
+              </button>
             </div>
           </div>
         </div>

@@ -1,9 +1,19 @@
 import React from "react";
 import Home from "../pages/home";
-import Contact from "../pages/home";
+import Contact from "../pages/contact";
+import Component from "../pages/component";
+import { CustomLeaflet } from "../pages/component/CustomLeaflet";
 export const AppConfig = {
-  access: {},
-  modules: [],
+  access: {
+    read: true,
+    add: false,
+    edit: false,
+    delete: false,
+  },
+  modules: [
+    { name: "home", icon: "fa fa-home" },
+    { name: "contact", icon: "fa fa-phone" },
+  ],
   content: {
     default: {
       htmlContent: (data) => {
@@ -22,7 +32,12 @@ export const AppConfig = {
     },
     component: {
       htmlContent: (data) => {
-        return <div>Component</div>;
+        return <Component data={data} />;
+      },
+    },
+    customLeaflet: {
+      htmlContent: (data) => {
+        return <CustomLeaflet data={data} />;
       },
     },
     dashboard: {

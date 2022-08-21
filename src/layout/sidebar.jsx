@@ -1,35 +1,31 @@
 import React from "react";
 import styled from "styled-components";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import { logout } from "../store/actions/auth";
+import { connect } from "react-redux";
+
+import { logout, isLogin } from "../store/actions/auth";
 import { svgIcons } from "../utils/svgicon";
 
-function Sidebar(props) {
+function SidebarPage(props) {
   const history = useHistory();
   let pageName = useLocation().pathname;
   pageName = pageName === "/" ? "/home" : pageName;
   console.log("sidebar props", props, svgIcons, pageName);
-  const { userData, setCollapse, collapse } = props;
+  const { appData, setCollapse, collapse } = props;
   const { selectedTheme } = props.content.props;
 
-  const OnLogout = () => {
-    if (logout()) {
-      history.push("/login");
-    } else {
-      history.push("/");
-    }
-  };
   const getMenus = () => {
     return (
-      Object.keys(userData).length > 0 &&
-      userData.modules.length > 0 &&
-      userData.modules.map((item) => {
-        console.log("line79=>", userData.content[item.name]);
+      Object.keys(appData).length > 0 &&
+      appData.modules.length > 0 &&
+      appData.modules.map((item) => {
+        console.log("line79=>", appData);
         const params = {
           pathname: `/${item.name}`,
           //   pathname: `/page`,
-          content: userData.content[`${item.name}`],
+          content: appData.content[`${item.name}`],
         };
+
         return (
           <Link
             className={pageName === `/${item.name}` ? "active" : ""}
@@ -53,26 +49,49 @@ function Sidebar(props) {
     );
   };
 
+  console.log("line56", appData, isLogin());
   return (
     <SidebarStyle collapse={collapse} selectedTheme={selectedTheme}>
       <div className="icon-bar">{getMenus()}</div>
       <ul className="actionBtnList">
-        <li>
-          <button
-            title="Logout"
-            onClick={() => OnLogout()}
-            className="logoutBtn"
-          >
-            {collapse ? (
-              <span>{svgIcons["logout"]()}</span>
-            ) : (
-              <>
+        {isLogin() ? (
+          <li>
+            <button
+              title="Logout"
+              onClick={() => props.logout()}
+              className="logoutBtn"
+            >
+              {collapse ? (
                 <span>{svgIcons["logout"]()}</span>
-                <label>Logout</label>
-              </>
-            )}
-          </button>
-        </li>
+              ) : (
+                <>
+                  <span>{svgIcons["logout"]()}</span>
+                  <label>Logout</label>
+                </>
+              )}
+            </button>
+          </li>
+        ) : (
+          <li>
+            <button
+              title="Login"
+              onClick={() => {
+                history.push("/login");
+              }}
+              className="logoutBtn"
+            >
+              {collapse ? (
+                <span>{svgIcons["login"]()}</span>
+              ) : (
+                <>
+                  <span>{svgIcons["login"]()}</span>
+                  <label>Login</label>
+                </>
+              )}
+            </button>
+          </li>
+        )}
+
         <li>
           <button
             title="Collapse"
@@ -93,6 +112,14 @@ function Sidebar(props) {
     </SidebarStyle>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logout: () => dispatch(logout()),
+  };
+};
+
+const Sidebar = connect(null, mapDispatchToProps)(SidebarPage);
 export default Sidebar;
 
 export const SidebarStyle = styled.div`

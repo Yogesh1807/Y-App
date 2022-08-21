@@ -13,12 +13,15 @@ export function login() {
         access: {
           read: true,
           add: false,
-          edit: false,
+          edit: true,
           delete: false,
         },
         modules: [
           { name: "home", icon: "fa fa-home" },
           { name: "contact", icon: "fa fa-phone" },
+          { name: "dashboard", icon: "fa fa-user" },
+          { name: "component", icon: "fa fa-user" },
+          { name: "customLeaflet", icon: "fa fa-user" },
         ],
       };
       alert("Logged in");
@@ -36,8 +39,12 @@ export function login() {
 }
 
 export const logout = () => {
-  localStorage.removeItem(TOKEN_KEY);
-  return true;
+  return (dispatch) => {
+    localStorage.removeItem(TOKEN_KEY);
+    dispatch({ type: "LOGOUT_SUCCESS" });
+    history.push("/");
+  };
+  // return true;
 };
 
 export const isLogin = () => {
@@ -47,3 +54,22 @@ export const isLogin = () => {
 
   return false;
 };
+export function signUp() {
+  return function (dispatch) {
+    dispatch({ type: "SIGNUP_LOADING" });
+    return axios.get("https://reqres.in/api/users/2").then(({ data }) => {
+      console.log("line 55=>", data);
+
+      alert("Sign Up successfully");
+      // localStorage.setItem(TOKEN_KEY, "TestLogin");
+      // localStorage.setItem(USER_DATA, JSON.stringify(userData));
+      if (data && data.status === 200) {
+        dispatch({ type: "SIGNUP_SUCCESS", payload: {} });
+        history.push("/login");
+      } else {
+        history.push("/signup");
+      }
+      // return userData;
+    });
+  };
+}

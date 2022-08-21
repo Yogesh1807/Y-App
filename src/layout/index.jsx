@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 import styled from "styled-components";
 import { AppConfig } from "../utils/appConfig";
 import Sidebar from "./sidebar";
@@ -11,15 +11,10 @@ export const PageLayout = (props) => {
   const { userData, content } = props;
   const { theme } = content.props;
   console.log("layout props", props, theme);
+
   useEffect(() => {
     if (!userData) {
-      tempData = JSON.parse(localStorage.getItem("user", userData));
-      let data = {
-        ...AppConfig,
-        access: tempData.access,
-        modules: tempData.modules,
-      };
-      setAppData(data);
+      setAppData(AppConfig);
     } else {
       tempData = userData;
       let data = {
@@ -31,7 +26,7 @@ export const PageLayout = (props) => {
     }
   }, [userData]);
 
-  console.log("Layout Data", appData);
+  console.log("Layout Data", AppConfig);
 
   return (
     <MainLayout>
@@ -39,20 +34,24 @@ export const PageLayout = (props) => {
         {...props}
         collapse={collapse}
         setCollapse={setCollapse}
-        userData={appData}
+        appData={appData}
       />
       <PageContent collapse={collapse}>{props.content}</PageContent>
     </MainLayout>
   );
 };
 
-const mapStateToProps = (state) => ({
-  userData: state.userReducer.userData,
-});
+// const mapStateToProps = (state) => {
+//   console.log("line46", state);
+//   return {
+//     userData: state.userReducer.userData,
+//   };
+// };
 
 // const mapDispatchToProps = () => {};
 
-connect(mapStateToProps)(PageLayout);
+// connect(mapStateToProps)(PageLayout);
+
 // export default PageLayout;
 export const MainLayout = styled.div`
   width: 100%;

@@ -6,11 +6,15 @@ import history from "./utils/constants";
 import { theme } from "./utils/themeconfig";
 import store from "./store/store";
 import AppEntry from "./pages/appEntry";
+import SignUp from "./pages/signup";
 import Home from "./pages/home";
 import Contact from "./pages/contact";
 import PrivateRoute from "./routeModule/private";
 import PublicRoute from "./routeModule/public";
 import Page from "./pages/page";
+import Dashboard from "./pages/Dashboard";
+import ComponentPage from "./pages/component";
+import { CustomLeaflet } from "./pages/component/CustomLeaflet";
 // const theme = {
 //   main: "mediumseagreen",
 // };
@@ -33,23 +37,33 @@ function App(props) {
               path="/login"
               exact
             />
-            <PrivateRoute
+            <PublicRoute
+              theme={themeState}
+              restricted={true}
+              component={SignUp}
+              path="/signup"
+              exact
+            />
+            <PublicRoute
               setThemeState={setThemeState}
               theme={themeState}
+              restricted={true}
               component={Home}
               path="/"
               exact
             />
-            <PrivateRoute
+            <PublicRoute
               setThemeState={setThemeState}
               theme={themeState}
+              restricted={true}
               component={Home}
               path="/home"
               exact
             />
-            <PrivateRoute
+            <PublicRoute
               setThemeState={setThemeState}
               theme={themeState}
+              restricted={true}
               component={Contact}
               path="/contact"
               exact
@@ -57,8 +71,23 @@ function App(props) {
             <PrivateRoute
               setThemeState={setThemeState}
               theme={themeState}
-              component={Page}
-              path="/page"
+              component={Dashboard}
+              path="/dashboard"
+              exact
+            />
+            <PrivateRoute
+              setThemeState={setThemeState}
+              theme={themeState}
+              component={ComponentPage}
+              path="/component"
+              exact
+            />
+
+            <PrivateRoute
+              setThemeState={setThemeState}
+              theme={themeState}
+              component={CustomLeaflet}
+              path="/customLeaflet"
               exact
             />
           </Switch>
