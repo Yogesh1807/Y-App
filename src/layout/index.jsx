@@ -59,7 +59,7 @@ export const MainLayout = styled.div`
 `;
 export const PageContent = styled.div`
   float: right;
-  width: ${(props) => (props.collapse ? "95%" : "80%")};
+  width: ${(props) => (props.collapse ? "95%" : "83%")};
   -webkit-transition: 0.4s;
   transition: 0.4s;
   a:hover {

@@ -53,62 +53,51 @@ function SidebarPage(props) {
   return (
     <SidebarStyle collapse={collapse} selectedTheme={selectedTheme}>
       <div className="icon-bar">{getMenus()}</div>
-      <ul className="actionBtnList">
+      <div className="actionBtnList">
         {isLogin() ? (
-          <li>
-            <button
-              title="Logout"
-              onClick={() => props.logout()}
-              className="logoutBtn"
-            >
-              {collapse ? (
-                <span>{svgIcons["logout"]()}</span>
-              ) : (
-                <>
-                  <span>{svgIcons["logout"]()}</span>
-                  <label>Logout</label>
-                </>
-              )}
-            </button>
-          </li>
-        ) : (
-          <li>
-            <button
-              title="Login"
-              onClick={() => {
-                history.push("/login");
-              }}
-              className="logoutBtn"
-            >
-              {collapse ? (
-                <span>{svgIcons["login"]()}</span>
-              ) : (
-                <>
-                  <span>{svgIcons["login"]()}</span>
-                  <label>Login</label>
-                </>
-              )}
-            </button>
-          </li>
-        )}
-
-        <li>
-          <button
-            title="Collapse"
-            className="collapseBtn"
-            onClick={() => setCollapse(!collapse)}
-          >
+          <Link to="#" title={"Logout"} onClick={props.logout}>
             {collapse ? (
-              <span>{svgIcons["collapse"]()}</span>
+              <span style={{ padding: "0 10px" }}>{svgIcons["logout"]()}</span>
             ) : (
               <>
-                <span>{svgIcons["collapse"]()}</span>
-                <label>Collapse</label>
+                <span style={{ padding: "0 10px" }}>
+                  {svgIcons["logout"]()}
+                </span>
+                <span style={{ padding: "0 10px" }}>Logout</span>
               </>
             )}
-          </button>
-        </li>
-      </ul>
+          </Link>
+        ) : (
+          <Link
+            to="#"
+            title={"Login"}
+            onClick={() => {
+              history.push("/login");
+            }}
+          >
+            {collapse ? (
+              <span style={{ padding: "0 10px" }}>{svgIcons["login"]()}</span>
+            ) : (
+              <>
+                <span style={{ padding: "0 10px" }}>{svgIcons["login"]()}</span>
+                <span style={{ padding: "0 10px" }}>Login</span>
+              </>
+            )}
+          </Link>
+        )}
+        <Link to="#" title={"Collapse"} onClick={() => setCollapse(!collapse)}>
+          {collapse ? (
+            <span style={{ padding: "0 10px" }}>{svgIcons["collapse"]()}</span>
+          ) : (
+            <>
+              <span style={{ padding: "0 10px" }}>
+                {svgIcons["collapse"]()}
+              </span>
+              <span style={{ padding: "0 10px" }}>Collapse</span>
+            </>
+          )}
+        </Link>
+      </div>
     </SidebarStyle>
   );
 }
@@ -126,7 +115,7 @@ export const SidebarStyle = styled.div`
   overflow: hidden;
   margin: 0;
   padding: 0;
-  width: ${(props) => (props.collapse ? "5%" : "20%")};
+  width: ${(props) => (props.collapse ? "5%" : "17%")};
   float: left;
   background-color: ${(props) => {
     console.log("line96 props=>", props);
@@ -204,6 +193,7 @@ export const SidebarStyle = styled.div`
     margin: 0;
     width: 100%;
     display: ${(props) => (props.collapse ? "block" : "flex")};
+    flex-direction: column;
   }
   .actionBtnList li {
     padding: 10px 3px;
@@ -217,7 +207,7 @@ export const SidebarStyle = styled.div`
     border: 0;
     background-color: transparent;
     color: ${(props) => props.selectedTheme.icon.color};
-    width: 100%;
+    /* width: 100%; */
   }
   .logoutBtn:hover {
     color: ${(props) => props.selectedTheme.colors.white};
@@ -227,7 +217,7 @@ export const SidebarStyle = styled.div`
     border: 0;
     background-color: transparent;
     color: ${(props) => props.selectedTheme.icon.color};
-    width: 100%;
+    /* width: 100%; */
   }
   .collapseBtn:hover {
     color: ${(props) => props.selectedTheme.colors.white};
