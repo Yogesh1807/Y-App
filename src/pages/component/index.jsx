@@ -78,10 +78,9 @@ export const MainContact = styled.div`
     /* border-radius: 0.2rem; */
     opacity: 0.8;
 }
-.listStyle{
+  .listStyle{
   padding: 10px;
 }
-  }
   .image-parent {
     max-width: 40px;
   }
